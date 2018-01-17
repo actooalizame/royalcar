@@ -1,14 +1,17 @@
 import React from 'react';
-import { ExpoConfigView } from '@expo/samples';
+import Meteor , {createContainer} from 'react-native-meteor';
+import CarListComponent from '../components/CarListComponent';
 
-export default class SettingsScreen extends React.Component {
+Meteor.connect('ws://192.168.1.85:3000/websocket');
+
+/*export default class SettingsScreen extends React.Component {
   static navigationOptions = {
     title: 'app.json',
-  };
+  };*/
 
-  render() {
-    /* Go ahead and delete ExpoConfigView and replace it with your
-     * content, we just wanted to give you a quick view of your config */
-    return <ExpoConfigView />;
-  }
-}
+export default LinksScreen = createContainer(props => {
+    const carsHandle = Meteor.subscribe('cars');
+    return {
+        carsReady: carsHandle.ready()
+    };
+ }, CarListComponent);
